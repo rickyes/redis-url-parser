@@ -1,0 +1,33 @@
+{
+  "name": "redis-url-plus",
+  "version": "0.0.1",
+  "description": "Redis Connect URL parser aligned with Redis-CLI commands ",
+  "main": "index.js",
+  "scripts": {
+    "test": "tap -j4 test.js",
+    "cov": "tap -j4 test.js --cov"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rickyes/redis-url-plus.git"
+  },
+  "keywords": [
+    "redis-url",
+    "redis",
+    "redis-connect-url",
+    "redis-cli",
+    "redis-cluster-url"
+  ],
+  "files": [
+    "index.js"
+  ],
+  "author": "Ricky <0x19951125@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rickyes/redis-url-plus/issues"
+  },
+  "homepage": "https://github.com/rickyes/redis-url-plus#readme",
+  "devDependencies": {
+    "tap": "^15.0.9"
+  }
+}
