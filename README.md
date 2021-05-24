@@ -7,12 +7,11 @@
 [![npm downloads/month][downloads-month-image]][download-url]
 [![npm downloads][downloads-image]][download-url]
 
-
 [npm-image]: https://img.shields.io/npm/v/redis-url-plus.svg?style=flat-square
 [npm-url]: https://www.npmjs.com/package/redis-url-plus
-[travis-image]: https://img.shields.io/travis/rickyes/redis-url-plus.svg?style=flat-square
+[travis-image]: https://img.shields.io/travis/com/rickyes/redis-url-plus/main
 [travis-url]: https://travis-ci.org/rickyes/redis-url-plus
-[codecov-image]: https://codecov.io/gh/rickyes/redis-url-plus/branch/master/graph/badge.svg
+[codecov-image]: https://codecov.io/gh/rickyes/redis-url-plus/branch/main/graph/badge.svg?token=T6eRV9TZp6
 [codecov-url]: https://codecov.io/github/rickyes/redis-url-plus?branch=master
 [downloads-month-image]: https://img.shields.io/npm/dm/redis-url-plus.svg?style=flat-square
 [download-url]: https://npmjs.org/package/redis-url-plus
