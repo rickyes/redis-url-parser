@@ -14,4 +14,4 @@ install:
 script:
   - npm run cov
 after_script:
-  - tap --coverage-report=text-lcov > coverage.lcov && codecov --disable=gcov
+  - tap --coverage-report=text-lcov > coverage.lcov && codecov
