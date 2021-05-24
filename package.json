@@ -28,6 +28,8 @@
   },
   "homepage": "https://github.com/rickyes/redis-url-plus#readme",
   "devDependencies": {
+    "codecov": "^3.8.2",
+    "nyc": "^15.1.0",
     "tap": "^15.0.9"
   }
 }
