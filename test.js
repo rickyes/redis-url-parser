@@ -76,6 +76,40 @@ test('With only password', t => {
   t.end();
 });
 
+test('With sentinel mode only password', t => {
+  
+  const { sentinels, name, db, username, password } = parser('redis-sentinel://:pwd@127.0.0.1:16379/master_name/2');
+
+  t.equal(username, undefined);
+  t.equal(password, 'pwd');
+  t.equal(name, 'master_name');
+  t.equal(db, 2);
+  t.equal(sentinels.length, 1);
+
+  t.equal(sentinels[0].host, '127.0.0.1');
+  t.equal(sentinels[0].port, 16379);
+
+  t.end();
+});
+
+test('With sentinel mode', t => {
+  
+  const { sentinels, name, db, username, password } = parser('redis-sentinel://usr:pwd@127.0.0.1:16379,127.0.0.2:26379/master_name/2');
+
+  t.equal(username, 'usr');
+  t.equal(password, 'pwd');
+  t.equal(name, 'master_name');
+  t.equal(db, 2);
+  t.equal(sentinels.length, 2);
+
+  t.equal(sentinels[0].host, '127.0.0.1');
+  t.equal(sentinels[0].port, 16379);
+  t.equal(sentinels[1].host, '127.0.0.2');
+  t.equal(sentinels[1].port, 26379);
+
+  t.end();
+});
+
 test('With cluster mode', t => {
   
   const { host, db, password, port, cluster, nodes } = parser('redis://localhost:6379/0,redis://localhost:6378/0');
@@ -106,5 +140,14 @@ test('Without url', t => {
   t.equal(parser(), undefined);
   t.equal(parser(''), undefined);
   t.throws(() => parser('1'), '[ERR_INVALID_REDIS_URL]: Invalid URL: 1');
+  t.end();
+});
+
+test('With invalid sentinel url', t => {
+  t.throws(
+    () => parser('redis-sentinel://usr:pwd@127.0.0.1:16379,127.0.0.1:26379'), 
+    '[ERR_INVALID_REDIS_URL]: Invalid URL: redis-sentinel://usr:pwd@127.0.0.1:16379,127.0.0.1:26379'
+  );
+
   t.end();
 });
