@@ -13,7 +13,7 @@ const parseStandalone = (redisUrl) => {
 
 const parseSentinel = (redisUrl) => {
   // example: redis-sentinel://username:password@127.0.0.1:16379,127.0.0.1:26379/master_name/0
-  const reg = new RegExp(/^redis-sentinel\:\/\/((.*)\:(.*)\@)?([^\,\:]+\:\d+)(\,[^\,\:]+\:\d+)*\/([^\/]+)\/(\d+)$/);
+  const reg = new RegExp(/^redis-sentinel\:\/\/((.*)\:(.*)\@)?((?:[^\,\:]+\:\d+,?)+)\/([^\/]+)\/(\d+)$/);
   const matchResult = reg.exec(redisUrl);
 
   if (!matchResult) {
@@ -29,8 +29,7 @@ const parseSentinel = (redisUrl) => {
   parsed.db = parseInt(nodes.pop());
   parsed.name = nodes.pop();
 
-  parsed.sentinels = nodes.filter(Boolean).map(node => {
-    if (node.startsWith(',')) node = node.slice(1);
+  parsed.sentinels = nodes.filter(Boolean)[0].split(',').map(node => {
     const [ host, port ] = node.split(':');
     return { host, port: parseInt(port) };
   });
