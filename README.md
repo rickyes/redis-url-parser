@@ -32,7 +32,11 @@ $ npm i redis-url-plus
 ## Usage
 
 ```bash
+# standalone/cluster
 redis://username:password@host:port/db[,redis://username:password@host:port/db]
+
+# sentinel
+redis-sentinel://[username:password@]host:port[,host:port]/master_name/db
 ```
 
 ```js
@@ -43,8 +47,7 @@ RedisUrlParser('redis://localhost:6379/0');
 // redis://localhost:6379/0 ==> { password: '', db: 0, port: 6379, host: 'localhost' }
 // redis://localhost:6379, ==> { password: '', db: 0, port: 6379, host: 'localhost' }
 // redis://user:pass@localhost:6379, ==> { password: 'pass', db: 0, port: 6379, host: 'localhost' }
-
-/*
+/**
  * redis://localhost:6379,redis://localhost:6378,redis://localhost:6377
  *
  * ||
@@ -57,7 +60,18 @@ RedisUrlParser('redis://localhost:6379/0');
  *      { password: '', db: 0, port: 6377, host: 'localhost' }
  *    ]
  * }
- */
+ **/
+
+// redis-sentinel://sentinel:26379/mymaster/0 ==> { db: 0, name: 'mymaster', sentinels: [{ host: 'sentinel', port: 26379 }] }
+/**
+ * 
+ * redis-sentinel://usr:pwd@sentinel:26379/mymaster/0
+ * 
+ * ||
+ * 
+ * { username: 'usr', password: 'pwd', db: 0, name: 'mymaster', sentinels: [{ host: 'sentinel', port: 26379 }] }
+ *  
+ **/
 ```
 
 ## Support Version
