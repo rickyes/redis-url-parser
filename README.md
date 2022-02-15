@@ -21,6 +21,11 @@
 
 Redis Connect URL parser aligned with Redis-CLI commands 
 
+## Features
+0. Standalone
+1. Cluster
+2. Sentinel
+
 
 ## Install
 ```bash
