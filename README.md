@@ -2,15 +2,15 @@
 
 [![NPM version][npm-image]][npm-url]
 [![Codacy][codacy-image]][codacy-url]
-[![build status][travis-image]][travis-url]
+[![build status][build-image]][build-url]
 [![Test coverage][codecov-image]][codecov-url]
 [![npm downloads/month][downloads-month-image]][download-url]
 [![npm downloads][downloads-image]][download-url]
 
 [npm-image]: https://img.shields.io/npm/v/redis-url-plus.svg?style=flat-square
 [npm-url]: https://www.npmjs.com/package/redis-url-plus
-[travis-image]: https://img.shields.io/travis/com/rickyes/redis-url-plus/main
-[travis-url]: https://travis-ci.org/rickyes/redis-url-plus
+[build-image]: https://github.com/rickyes/redis-url-plus/actions/workflows/node.js.yml/badge.svg?branch=main
+[build-url]: https://github.com/rickyes/redis-url-plus
 [codecov-image]: https://codecov.io/gh/rickyes/redis-url-plus/branch/main/graph/badge.svg?token=T6eRV9TZp6
 [codecov-url]: https://codecov.io/github/rickyes/redis-url-plus?branch=master
 [downloads-month-image]: https://img.shields.io/npm/dm/redis-url-plus.svg?style=flat-square
