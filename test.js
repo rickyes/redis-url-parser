@@ -181,6 +181,7 @@ test('With cluster mode', t => {
 test('Without url', t => {
   t.equal(parser(), undefined);
   t.equal(parser(''), undefined);
+  t.throws(() => parser('1'), '[ERR_INVALID_REDIS_URL]: Invalid URL: 1');
   t.end();
 });
 
@@ -194,8 +195,9 @@ test('With invalid sentinel url', t => {
 });
 
 test('With socket path', (t) => {
-  const { path } = parser('/tmp/redis.sock');
-  t.equal(path, '/tmp/redis.sock');
+  t.equal(parser('socket://tmp/redis.sock').path, '/tmp/redis.sock');
+  t.equal(parser('socket:///tmp/redis.sock').path, '/tmp/redis.sock');
+  t.throws(() => parser('socket:/1'), '[ERR_INVALID_SOCKET_PATH]: Invalid URL: socket:/1');
 
   t.end();
 });

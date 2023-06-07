@@ -1,3 +1,5 @@
+const path = require('path')
+
 const parseStandalone = (redisUrl) => {
   const url = new URL(redisUrl);
 
@@ -37,20 +39,36 @@ const parseSentinel = (redisUrl) => {
   return parsed;
 };
 
+const parseSocketPath = (redisUrl) => {
+  // example: socket://tmp/redis.sock
+  const reg = new RegExp(/^socket\:\/\/(.*)/);
+  const matchResult = reg.exec(redisUrl);
+
+  if (!matchResult) {
+    throw new Error(`[ERR_INVALID_SOCKET_PATH]: Invalid URL: ${redisUrl}`);
+  }
+
+  const parsed = {};
+
+  parsed.path = path.join('/', matchResult[1])
+
+  return parsed
+}
+
 module.exports = (redisUrls) => {
   if (!redisUrls) return;
 
   const redisConfig = {};
   try {
     const isSentinel = redisUrls.startsWith('redis-sentinel');
-    const isPathMode = !isSentinel && !redisUrls.startsWith('redis:') && !redisUrls.startsWith('rediss:');
+    const isSocketPath = redisUrls.startsWith('socket:');
     if (isSentinel) {
       // sentinel mode url
       const sentinelConfig = parseSentinel(redisUrls);
       Object.assign(redisConfig, sentinelConfig);
-    } else if (isPathMode) {
-      // path mode
-      Object.assign(redisConfig, { path: redisUrls });
+    } else if (isSocketPath) {
+      // socket path mode
+      Object.assign(redisConfig, parseSocketPath(redisUrls));
     } else {
       // standalone/cluster mode url
       const nodes = redisUrls.split(',').map((node) => parseStandalone(node));
