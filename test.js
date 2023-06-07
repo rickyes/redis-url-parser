@@ -193,3 +193,11 @@ test('With invalid sentinel url', t => {
 
   t.end();
 });
+
+test('With socket path', (t) => {
+  t.equal(parser('socket://tmp/redis.sock').path, '/tmp/redis.sock');
+  t.equal(parser('socket:///tmp/redis.sock').path, '/tmp/redis.sock');
+  t.throws(() => parser('socket:/1'), '[ERR_INVALID_SOCKET_PATH]: Invalid URL: socket:/1');
+
+  t.end();
+});
