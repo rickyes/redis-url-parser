@@ -43,10 +43,14 @@ module.exports = (redisUrls) => {
   const redisConfig = {};
   try {
     const isSentinel = redisUrls.startsWith('redis-sentinel');
+    const isPathMode = !isSentinel && !redisUrls.startsWith('redis:') && !redisUrls.startsWith('rediss:');
     if (isSentinel) {
       // sentinel mode url
       const sentinelConfig = parseSentinel(redisUrls);
       Object.assign(redisConfig, sentinelConfig);
+    } else if (isPathMode) {
+      // path mode
+      Object.assign(redisConfig, { path: redisUrls });
     } else {
       // standalone/cluster mode url
       const nodes = redisUrls.split(',').map((node) => parseStandalone(node));

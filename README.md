@@ -19,15 +19,17 @@
 [codacy-image]: https://app.codacy.com/project/badge/Grade/7a96dea4ed924752b2f131c0ab5ec812
 [codacy-url]: https://app.codacy.com/manual/rickyes/redis-url-plus
 
-Redis Connect URL parser aligned with Redis-CLI commands 
+Redis Connect URL parser aligned with Redis-CLI commands
 
 ## Features
+
 0. Standalone
 1. Cluster
 2. Sentinel
-
+3. Unix Domain Socket
 
 ## Install
+
 ```bash
 $ yarn add redis-url-plus
 # or
@@ -42,6 +44,9 @@ redis://username:password@host:port/db[,redis://username:password@host:port/db]
 
 # sentinel
 redis-sentinel://[username:password@]host:port[,host:port]/master_name/db
+
+# unix domain socket
+/tmp/redis.sock
 ```
 
 ```js
@@ -49,6 +54,7 @@ const RedisUrlParser = require('redis-url-plus');
 
 RedisUrlParser('redis://localhost:6379/0');
 
+// /tmp/redis.sock ==> { path: '/tmp/redis.sock' }
 // redis://localhost:6379/0 ==> { password: '', db: 0, port: 6379, host: 'localhost' }
 // redis://localhost:6379, ==> { password: '', db: 0, port: 6379, host: 'localhost' }
 // redis://user:pass@localhost:6379, ==> { password: 'pass', db: 0, port: 6379, host: 'localhost' }
@@ -80,6 +86,7 @@ RedisUrlParser('redis://localhost:6379/0');
 ```
 
 ## Support Version
+
 - 10
 - 12
 - 14
