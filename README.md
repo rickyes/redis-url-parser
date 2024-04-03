@@ -47,6 +47,9 @@ redis-sentinel://[username:password@]host:port[,host:port]/master_name/db
 
 # unix domain socket
 socket://tmp/redis.sock
+
+# cluster
+redis-cluster://host:port[,host:port]
 ```
 
 ```js
@@ -84,6 +87,17 @@ RedisUrlParser('redis://localhost:6379/0');
  **/
 
 // socket://tmp/redis.sock ==> { path: '/tmp/redis.sock' }
+
+// redis-cluster://localhost:6379 ==> { cluster: true, nodes: [{ host: 'localhost', port: 6379 }] }
+/**
+ * 
+ * redis-cluster://localhost:6379,localhost:6380
+ * 
+ * ||
+ * 
+ * { cluster: true, nodes: [{ host: 'localhost', port: 6379 }, { host: 'localhost', port: 6380 }] }
+ *  
+ **/
 
 ```
 

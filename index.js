@@ -13,6 +13,28 @@ const parseStandalone = (redisUrl) => {
   return parsed;
 };
 
+const parseCluster = (redisUrl) => {
+  // example: cluster://127.0.0.1:16379,127.0.0.1:26379
+  const reg = new RegExp(/^redis-cluster\:\/\/((?:[^\,\:]+\:\d+,?)+)$/);
+  const matchResult = reg.exec(redisUrl);
+
+  if (!matchResult) {
+    throw new Error(`[ERR_INVALID_CLUSTER_REDIS_URL]: Invalid URL: ${redisUrl}`);
+  }
+
+  const [, url] = matchResult
+
+  const parsed = {
+    cluster: true,
+    nodes: url.split(',').map(node => {
+      const [ host, port ] = node.split(':');
+      return { host, port: parseInt(port) };
+    })
+  }
+
+  return parsed
+}
+
 const parseSentinel = (redisUrl) => {
   // example: redis-sentinel://username:password@127.0.0.1:16379,127.0.0.1:26379/master_name/0
   const reg = new RegExp(/^redis-sentinel\:\/\/((.*)\:(.*)\@)?((?:[^\,\:]+\:\d+,?)+)\/([^\/]+)\/(\d+)$/);
@@ -60,9 +82,15 @@ module.exports = (redisUrls) => {
 
   const redisConfig = {};
   try {
+    const isCluster = redisUrls.startsWith('redis-cluster');
     const isSentinel = redisUrls.startsWith('redis-sentinel');
     const isSocketPath = redisUrls.startsWith('socket:');
-    if (isSentinel) {
+
+    if (isCluster) {
+      // cluster mode url
+      const clusterConfig = parseCluster(redisUrls);
+      Object.assign(redisConfig, clusterConfig);
+    } else if (isSentinel) {
       // sentinel mode url
       const sentinelConfig = parseSentinel(redisUrls);
       Object.assign(redisConfig, sentinelConfig);
