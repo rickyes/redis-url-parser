@@ -189,6 +189,12 @@ test('With specific cluster mode and 2 node', t => {
   t.end();
 });
 
+test('With specific cluster mode and throw error', t => {
+  t.throws(() => parser('redis-cluster://1'), '[ERR_INVALID_CLUSTER_REDIS_URL]: Invalid URL: redis-cluster://1');
+
+  t.end();
+});
+
 
 test('With cluster mode', t => {
   
