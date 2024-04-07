@@ -25,9 +25,9 @@ jobs:
         cache: 'npm'
     - name: Run Install
       run: |
-        npm install
-        npm install -g tap codecov
+        npm i yarn -g
+        yarn
     - name: Run cov
       run: |
-        npm run cov
-        tap --coverage-report=text-lcov > coverage.lcov && codecov
+        yarn cov
+        # npx tap --coverage-report=text-lcov > coverage.lcov && npx codecov
