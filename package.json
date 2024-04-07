@@ -1,6 +1,6 @@
 {
   "name": "redis-url-plus",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Redis Connect URL parser aligned with Redis-CLI commands ",
   "main": "index.js",
   "scripts": {
