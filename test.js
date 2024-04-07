@@ -152,6 +152,50 @@ test('With sentinel mode no user and no pass provided', t => {
   t.end();
 });
 
+test('With specific cluster mode and 1 node', t => {
+  
+  const { cluster, nodes } = parser('redis-cluster://localhost:6379');
+
+  t.equal(cluster, true);
+  t.equal(nodes.length, 1);
+
+  t.equal(nodes[0].port, 6379);
+  t.equal(nodes[0].host, 'localhost');
+  t.equal(nodes[0].db, undefined);
+  t.equal(nodes[0].password, undefined);
+  t.equal(nodes[0].cluster, undefined);
+  t.equal(nodes[0].nodes, undefined);
+
+  t.end();
+});
+
+test('With specific cluster mode and 2 node', t => {
+  
+  const { cluster, nodes } = parser('redis-cluster://localhost:6379,localhost:6378');
+
+  t.equal(cluster, true);
+  t.equal(nodes.length, 2);
+
+  t.equal(nodes[0].port, 6379);
+  t.equal(nodes[1].port, 6378);
+  for (const node of nodes) {
+    t.equal(node.host, 'localhost');
+    t.equal(node.db, undefined);
+    t.equal(node.password, undefined);
+    t.equal(node.cluster, undefined);
+    t.equal(node.nodes, undefined);
+  }
+
+  t.end();
+});
+
+test('With specific cluster mode and throw error', t => {
+  t.throws(() => parser('redis-cluster://1'), '[ERR_INVALID_CLUSTER_REDIS_URL]: Invalid URL: redis-cluster://1');
+
+  t.end();
+});
+
+
 test('With cluster mode', t => {
   
   const { host, db, password, port, cluster, nodes } = parser('redis://localhost:6379/0,redis://localhost:6378/0');
