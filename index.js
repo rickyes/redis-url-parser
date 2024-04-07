@@ -28,7 +28,7 @@ const parseCluster = (redisUrl) => {
     cluster: true,
     nodes: url.split(',').map(node => {
       const [ host, port ] = node.split(':');
-      return { host, port: parseInt(port) };
+      return { host, port: parseInt(port), password: '', db: '' };
     })
   }
 

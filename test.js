@@ -161,8 +161,8 @@ test('With specific cluster mode and 1 node', t => {
 
   t.equal(nodes[0].port, 6379);
   t.equal(nodes[0].host, 'localhost');
-  t.equal(nodes[0].db, undefined);
-  t.equal(nodes[0].password, undefined);
+  t.equal(nodes[0].db, '');
+  t.equal(nodes[0].password, '');
   t.equal(nodes[0].cluster, undefined);
   t.equal(nodes[0].nodes, undefined);
 
@@ -180,8 +180,8 @@ test('With specific cluster mode and 2 node', t => {
   t.equal(nodes[1].port, 6378);
   for (const node of nodes) {
     t.equal(node.host, 'localhost');
-    t.equal(node.db, undefined);
-    t.equal(node.password, undefined);
+    t.equal(node.db, '');
+    t.equal(node.password, '');
     t.equal(node.cluster, undefined);
     t.equal(node.nodes, undefined);
   }
